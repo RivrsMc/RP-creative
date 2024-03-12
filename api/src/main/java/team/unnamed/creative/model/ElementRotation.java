@@ -60,13 +60,6 @@ public class ElementRotation implements Examinable {
         this.axis = requireNonNull(axis, "axis");
         this.angle = angle;
         this.rescale = rescale;
-        validate();
-    }
-
-    private void validate() {
-        float absAngle = Math.abs(angle);
-        if (angle != 0F && absAngle != 22.5F && absAngle != 45F)
-            throw new IllegalArgumentException("Angle must be multiple of 22.5, in range of -45 to 45");
     }
 
     /**

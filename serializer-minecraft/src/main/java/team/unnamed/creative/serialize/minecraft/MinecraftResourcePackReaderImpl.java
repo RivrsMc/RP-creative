@@ -254,6 +254,15 @@ final class MinecraftResourcePackReaderImpl implements MinecraftResourcePackRead
                     continue;
                 }
                 Key key = Key.key(namespace, keyValue);
+
+                try {
+                    if (reader.stream().available() == 0) {
+                        continue;
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
                 try {
                     ResourceDeserializer<?> deserializer = category.deserializer();
                     Object resource;

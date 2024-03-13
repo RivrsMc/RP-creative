@@ -295,6 +295,9 @@ public interface ResourceContainer {
      */
     boolean removeModel(final @NotNull Key key);
 
+
+    boolean swapModel(final @NotNull Key key, final @NotNull Key newKey);
+
     /**
      * Gets all the models in this resource container.
      *
@@ -522,6 +525,8 @@ public interface ResourceContainer {
      * @since 1.3.0
      */
     boolean removeTexture(final @NotNull Key key);
+
+    boolean swapTexture(final @NotNull Key key, final @NotNull Key newKey);
 
     /**
      * Gets all the textures in this resource container.

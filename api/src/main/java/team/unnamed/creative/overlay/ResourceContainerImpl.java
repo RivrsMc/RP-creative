@@ -188,6 +188,20 @@ public class ResourceContainerImpl implements ResourceContainer {
     }
 
     @Override
+    public boolean swapModel(@NotNull Key key, @NotNull Key newKey) {
+        requireNonNull(key, "key");
+        requireNonNull(newKey, "newKey");
+        if (!models.containsKey(key))
+            return true;
+        Model model = models.remove(key);
+        model = model.toBuilder()
+                .key(newKey)
+                .build();
+        models.put(newKey, model);
+        return true;
+    }
+
+    @Override
     public @NotNull Collection<Model> models() {
         return models.values();
     }
@@ -260,6 +274,20 @@ public class ResourceContainerImpl implements ResourceContainer {
     public boolean removeTexture(final @NotNull Key key) {
         requireNonNull(key, "key");
         return textures.remove(key) != null;
+    }
+
+    @Override
+    public boolean swapTexture(@NotNull Key key, @NotNull Key newKey) {
+        requireNonNull(key, "key");
+        requireNonNull(newKey, "newKey");
+        if (!textures.containsKey(key))
+            return true;
+        Texture texture = textures.remove(key);
+        texture = texture.toBuilder()
+                .key(newKey)
+                .build();
+        textures.put(newKey, texture);
+        return true;
     }
 
     @Override

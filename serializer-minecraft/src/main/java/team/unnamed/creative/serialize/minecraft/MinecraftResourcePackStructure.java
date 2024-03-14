@@ -25,6 +25,7 @@ package team.unnamed.creative.serialize.minecraft;
 
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.key.Keyed;
+import team.unnamed.creative.model.ModelTexture;
 import team.unnamed.creative.sound.SoundRegistry;
 import team.unnamed.creative.texture.Texture;
 
@@ -68,6 +69,12 @@ public class MinecraftResourcePackStructure {
     public static String pathOf(SoundRegistry registry) {
         // assets/<namespace>/sounds.json
         return path(ASSETS_FOLDER, registry.namespace(), SOUNDS_FILE);
+    }
+
+    public static String pathOf(ModelTexture texture) {
+        Key key = texture.key();
+        // assets/<namespace>/textures/<path>
+        return path(ASSETS_FOLDER, key.namespace(), TEXTURES_FOLDER, key.value());
     }
 
     public static String pathOf(Texture texture) {

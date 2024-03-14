@@ -33,7 +33,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringJoiner;
 
-final class MinecraftResourcePackStructure {
+public class MinecraftResourcePackStructure {
 
     // file extensions
     public static final String TEXTURE_EXTENSION = ".png";

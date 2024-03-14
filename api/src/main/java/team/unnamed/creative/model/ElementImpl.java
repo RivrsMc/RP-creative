@@ -73,8 +73,8 @@ final class ElementImpl implements Element {
     }
 
     private void validate() {
-        validateBound(from);
-        validateBound(to);
+       // validateBound(from);
+       // validateBound(to);
         if (faces.size() < 1 || faces.size() > 6)
             throw new IllegalArgumentException("Invalid amount of faces (" + faces.size() + ")");
     }

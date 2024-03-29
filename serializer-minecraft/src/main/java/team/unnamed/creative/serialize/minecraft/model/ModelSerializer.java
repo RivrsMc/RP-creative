@@ -28,8 +28,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.stream.JsonWriter;
+
 import net.kyori.adventure.key.Key;
+
 import org.jetbrains.annotations.ApiStatus;
+
 import team.unnamed.creative.base.Axis3D;
 import team.unnamed.creative.base.CubeFace;
 import team.unnamed.creative.base.Vector2Float;
@@ -114,6 +117,15 @@ public final class ModelSerializer implements JsonResourceSerializer<Model>, Jso
             writer.name("ambientocclusion").value(ambientOcclusion);
         }
 
+        // Texture size
+        Vector2Float textureSize = model.textureSize();
+        writer.name("texture_size");
+        writer.beginArray();
+        writer.value(textureSize.x());
+        writer.value(textureSize.y());
+        writer.endArray();
+
+        // Textures
         writeTextures(writer, model.textures());
 
         Model.GuiLight guiLight = model.guiLight();
@@ -135,7 +147,6 @@ public final class ModelSerializer implements JsonResourceSerializer<Model>, Jso
 
     @Override
     public Model deserializeFromJson(JsonElement node, Key key) {
-
         JsonObject objectNode = node.getAsJsonObject();
 
         // parent
@@ -162,6 +173,15 @@ public final class ModelSerializer implements JsonResourceSerializer<Model>, Jso
             }
         }
 
+        // Texture size
+        Vector2Float textureSize = Model.DEFAULT_TEXTURE_SIZE;
+        if (objectNode.has("texture_size")) {
+            JsonArray array = objectNode.getAsJsonArray("texture_size");
+            if (array.size() == 2)
+                textureSize = new Vector2Float(array.get(0).getAsFloat(), array.get(1).getAsFloat());
+        }
+
+        // Textures
         ModelTextures texture = ModelTextures.builder().build();
 
         if (objectNode.has("textures")) {
@@ -187,6 +207,7 @@ public final class ModelSerializer implements JsonResourceSerializer<Model>, Jso
                 .display(display)
                 .elements(elements)
                 .ambientOcclusion(GsonUtil.getBoolean(objectNode, "ambientocclusion", Model.DEFAULT_AMBIENT_OCCLUSION))
+                .textureSize(textureSize)
                 .textures(texture)
                 .guiLight(guiLight)
                 .overrides(overrides)

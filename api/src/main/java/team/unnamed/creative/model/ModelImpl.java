@@ -26,6 +26,7 @@ package team.unnamed.creative.model;
 import net.kyori.adventure.key.Key;
 import net.kyori.examination.ExaminableProperty;
 import net.kyori.examination.string.StringExaminer;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -38,12 +39,15 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
+import team.unnamed.creative.base.Vector2Float;
 
 final class ModelImpl implements Model {
+
     private final Key key;
     private final Key parent;
     private final boolean ambientOcclusion;
     private final Map<ItemTransform.Type, ItemTransform> display;
+    private final Vector2Float textureSize;
     private final ModelTextures textures;
     private final GuiLight guiLight;
     private final List<Element> elements;
@@ -54,6 +58,7 @@ final class ModelImpl implements Model {
             final @Nullable Key parent,
             final boolean ambientOcclusion,
             final @NotNull Map<ItemTransform.Type, ItemTransform> display,
+            final @NotNull Vector2Float textureSize,
             final @NotNull ModelTextures textures,
             final @Nullable GuiLight guiLight,
             final @NotNull List<Element> elements,
@@ -63,6 +68,7 @@ final class ModelImpl implements Model {
         this.parent = parent;
         this.ambientOcclusion = ambientOcclusion;
         this.display = requireNonNull(display, "display");
+        this.textureSize = requireNonNull(textureSize, "textureSize");
         this.textures = requireNonNull(textures, "textures");
         this.guiLight = guiLight;
         this.elements = requireNonNull(elements, "elements");
@@ -87,6 +93,11 @@ final class ModelImpl implements Model {
     @Override
     public @NotNull @Unmodifiable Map<ItemTransform.Type, ItemTransform> display() {
         return display;
+    }
+
+    @Override
+    public @NotNull Vector2Float textureSize() {
+        return this.textureSize;
     }
 
     @Override
@@ -116,6 +127,7 @@ final class ModelImpl implements Model {
                 ExaminableProperty.of("parent", parent),
                 ExaminableProperty.of("ambientocclusion", ambientOcclusion),
                 ExaminableProperty.of("display", display),
+                ExaminableProperty.of("textureSize", textureSize),
                 ExaminableProperty.of("textures", textures),
                 ExaminableProperty.of("guiLight", guiLight),
                 ExaminableProperty.of("elements", elements),
@@ -134,18 +146,19 @@ final class ModelImpl implements Model {
         if (o == null || getClass() != o.getClass()) return false;
         final ModelImpl that = (ModelImpl) o;
         return key.equals(that.key)
-                && ambientOcclusion == that.ambientOcclusion
-                && Objects.equals(parent, that.parent)
-                && display.equals(that.display)
-                && textures.equals(that.textures)
-                && guiLight == that.guiLight
-                && elements.equals(that.elements)
-                && overrides.equals(that.overrides);
+               && ambientOcclusion == that.ambientOcclusion
+               && Objects.equals(parent, that.parent)
+               && display.equals(that.display)
+               && textureSize.equals(that.textureSize)
+               && textures.equals(that.textures)
+               && guiLight == that.guiLight
+               && elements.equals(that.elements)
+               && overrides.equals(that.overrides);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, parent, ambientOcclusion, display, textures, guiLight, elements, overrides);
+        return Objects.hash(key, parent, ambientOcclusion, display, textureSize, textures, guiLight, elements, overrides);
     }
 
     static final class BuilderImpl implements Builder {
@@ -153,6 +166,7 @@ final class ModelImpl implements Model {
         private Key parent;
         private boolean ambientOcclusion = DEFAULT_AMBIENT_OCCLUSION;
         private Map<ItemTransform.Type, ItemTransform> display = new HashMap<>();
+        private Vector2Float textureSize = DEFAULT_TEXTURE_SIZE;
         private ModelTextures textures = ModelTextures.EMPTY;
         private GuiLight guiLight;
         private List<Element> elements = new ArrayList<>();
@@ -171,6 +185,12 @@ final class ModelImpl implements Model {
         }
 
         @Override
+        public @NotNull Builder textureSize(@NotNull Vector2Float textureSize) {
+            this.textureSize = requireNonNull(textureSize, "textureSize");
+            return this;
+        }
+
+        @Override
         public @NotNull Builder ambientOcclusion(final boolean ambientOcclusion) {
             this.ambientOcclusion = ambientOcclusion;
             return this;
@@ -182,6 +202,7 @@ final class ModelImpl implements Model {
             this.display = new HashMap<>(display);
             return this;
         }
+
 
         @Override
         public @NotNull Builder textures(final @NotNull ModelTextures textures) {
@@ -225,7 +246,7 @@ final class ModelImpl implements Model {
 
         @Override
         public @NotNull Model build() {
-            return new ModelImpl(key, parent, ambientOcclusion, display, textures, guiLight, elements, overrides);
+            return new ModelImpl(key, parent, ambientOcclusion, display, textureSize, textures, guiLight, elements, overrides);
         }
     }
 }

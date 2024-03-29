@@ -26,17 +26,21 @@ package team.unnamed.creative.model;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.key.Keyed;
 import net.kyori.examination.Examinable;
+
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
+
+import team.unnamed.creative.base.Vector2Float;
 import team.unnamed.creative.overlay.ResourceContainer;
 import team.unnamed.creative.part.ResourcePackPart;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import static java.util.Objects.requireNonNull;
 
@@ -82,6 +86,7 @@ public interface Model extends ResourcePackPart, Keyed, Examinable {
     Key BUILT_IN_GENERATED = Key.key("builtin/generated");
 
     boolean DEFAULT_AMBIENT_OCCLUSION = true;
+    Vector2Float DEFAULT_TEXTURE_SIZE = new Vector2Float(16, 16);
 
     @Override
     @NotNull Key key();
@@ -112,6 +117,8 @@ public interface Model extends ResourcePackPart, Keyed, Examinable {
      * @since 1.0.0
      */
     @NotNull @Unmodifiable Map<ItemTransform.Type, ItemTransform> display();
+
+    @NotNull Vector2Float textureSize();
 
     /**
      * Returns this model textures
@@ -165,7 +172,8 @@ public interface Model extends ResourcePackPart, Keyed, Examinable {
      * @since 1.3.0
      */
     @Contract("-> new")
-    @NotNull default Builder toBuilder() {
+    @NotNull
+    default Builder toBuilder() {
         return Model.model().key(key())
                 .parent(parent())
                 .ambientOcclusion(ambientOcclusion())
@@ -204,6 +212,9 @@ public interface Model extends ResourcePackPart, Keyed, Examinable {
 
         @Contract("_ -> this")
         @NotNull Builder parent(final @Nullable Key parent);
+
+        @Contract("_ -> this")
+        @NotNull Builder textureSize(final @NotNull Vector2Float textureSize);
 
         @Contract("_ -> this")
         @NotNull Builder ambientOcclusion(final boolean ambientOcclusion);

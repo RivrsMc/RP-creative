@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
 
-final class ItemTransformImpl implements ItemTransform {
+public final class ItemTransformImpl implements ItemTransform {
 
     private final Vector3Float rotation;
     private final Vector3Float translation;

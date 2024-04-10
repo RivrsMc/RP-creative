@@ -121,4 +121,24 @@ public enum CubeFace {
         return factor;
     }
 
+    public static CubeFace fromString(String name) {
+        switch (name.toLowerCase()) {
+            case "west":
+                return WEST;
+            case "east":
+                return EAST;
+            case "down":
+            case "bottom":
+                return DOWN;
+            case "up":
+            case "top":
+                return UP;
+            case "north":
+                return NORTH;
+            case "south":
+                return SOUTH;
+            default:
+                throw new IllegalArgumentException("Unknown face: " + name);
+        }
+    }
 }

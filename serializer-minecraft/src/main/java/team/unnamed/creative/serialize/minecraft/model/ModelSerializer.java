@@ -301,7 +301,7 @@ public final class ModelSerializer implements JsonResourceSerializer<Model>, Jso
 
         Map<CubeFace, ElementFace> faces = new HashMap<>();
         for (Map.Entry<String, JsonElement> entry : objectNode.getAsJsonObject("faces").entrySet()) {
-            CubeFace face = CubeFace.valueOf(entry.getKey().toUpperCase(Locale.ROOT));
+            CubeFace face = CubeFace.fromString(entry.getKey().toUpperCase(Locale.ROOT));
             JsonObject elementFaceNode = entry.getValue().getAsJsonObject();
             TextureUV uv = null;
             if (elementFaceNode.has("uv")) {
@@ -316,7 +316,7 @@ public final class ModelSerializer implements JsonResourceSerializer<Model>, Jso
 
             CubeFace cullFace = null;
             if (elementFaceNode.has("cullface")) {
-                cullFace = CubeFace.valueOf(elementFaceNode.get("cullface").getAsString().toUpperCase(Locale.ROOT));
+                cullFace = CubeFace.fromString(elementFaceNode.get("cullface").getAsString().toUpperCase(Locale.ROOT));
             }
 
             faces.put(

@@ -25,8 +25,10 @@ package team.unnamed.creative.model;
 
 import net.kyori.examination.ExaminableProperty;
 import net.kyori.examination.string.StringExaminer;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import team.unnamed.creative.base.CubeFace;
 import team.unnamed.creative.texture.TextureUV;
 
@@ -64,7 +66,7 @@ final class ElementFaceImpl implements ElementFace {
     }
 
     @Override
-    public @Nullable TextureUV uv0() {
+    public @Nullable TextureUV uv() {
         return uv;
     }
 
@@ -110,10 +112,10 @@ final class ElementFaceImpl implements ElementFace {
         if (o == null || getClass() != o.getClass()) return false;
         ElementFaceImpl that = (ElementFaceImpl) o;
         return rotation == that.rotation
-                && Objects.equals(uv, that.uv)
-                && texture.equals(that.texture)
-                && cullFace == that.cullFace
-                && tintIndex == that.tintIndex;
+               && Objects.equals(uv, that.uv)
+               && texture.equals(that.texture)
+               && cullFace == that.cullFace
+               && tintIndex == that.tintIndex;
     }
 
     @Override

@@ -177,7 +177,10 @@ public final class FontSerializer implements JsonResourceSerializer<Font>, JsonR
 
     private static LegacyUnicodeFontProvider readLegacyUnicode(JsonObject node) {
         // TODO: Should not be keys, they are formatted using String#format(...)
-        throw new UnsupportedOperationException("Legacy Unicode font providers are not supported anymore");
+        return FontProvider.legacyUnicode(
+                Key.key(node.get("sizes").getAsString()),
+                node.get("template").getAsString()
+        );
     }
 
     private static void writeSpace(JsonWriter writer, SpaceFontProvider provider) throws IOException {

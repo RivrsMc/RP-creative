@@ -60,31 +60,6 @@ public interface ResourcePackServer {
     }
 
     /**
-     * Creates a new builder instance for {@link ResourcePackServer}.
-     *
-     * @return A new builder instance
-     * @since 1.0.0
-     * @deprecated Use {@link #server()} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    @Contract("-> new")
-    static @NotNull Builder builder() {
-        return server();
-    }
-
-    /**
-     * Gets the internal {@link HttpServer} instance.
-     *
-     * @return The internal {@link HttpServer} instance
-     * @since 1.0.0
-     * @deprecated Should not be exposed by this interface
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    @NotNull HttpServer httpServer();
-
-    /**
      * Gets the server's bound {@link InetSocketAddress address}.
      *
      * @return The server's bound {@link InetSocketAddress address}
@@ -260,22 +235,6 @@ public interface ResourcePackServer {
          */
         @NotNull Builder handler(final @NotNull ResourcePackRequestHandler handler);
 
-        /**
-         * Sets the server's request handler, required,
-         * may also be set by using {@link #pack}.
-         *
-         * @param handler The server's request handler
-         * @return This builder
-         * @since 1.0.0
-         * @deprecated Use {@link #handler(ResourcePackRequestHandler)} instead
-         */
-        @Deprecated
-        @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-        @Contract("_ -> this")
-        default @NotNull Builder handler(final @NotNull team.unnamed.creative.server.ResourcePackRequestHandler handler) {
-            // cast to new ResourcePackRequestHandler
-            return handler((ResourcePackRequestHandler) requireNonNull(handler, "handler"));
-        }
 
         /**
          * Sets a request handler that will always return the given

@@ -23,22 +23,23 @@
  */
 package team.unnamed.creative.server;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.util.concurrent.Executor;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsConfigurator;
 import com.sun.net.httpserver.HttpsServer;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import static java.util.Objects.requireNonNull;
 import team.unnamed.creative.server.handler.ResourcePackRequestHandler;
 import team.unnamed.creative.server.request.ResourcePackDownloadRequest;
 import team.unnamed.creative.server.util.ResourcePackDownloadRequestParser;
-
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.util.concurrent.Executor;
-
-import static java.util.Objects.requireNonNull;
 
 final class ResourcePackServerImpl implements ResourcePackServer {
 
@@ -53,12 +54,6 @@ final class ResourcePackServerImpl implements ResourcePackServer {
         this.server = requireNonNull(server, "server");
         this.handler = requireNonNull(handler, "handler");
         this.server.createContext(requireNonNull(path, "path"), this::handleRequest);
-    }
-
-    @Override
-    @Deprecated
-    public @NotNull HttpServer httpServer() {
-        return server;
     }
 
     @Override

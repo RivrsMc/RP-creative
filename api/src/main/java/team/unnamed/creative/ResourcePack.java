@@ -23,10 +23,15 @@
  */
 package team.unnamed.creative;
 
-import net.kyori.adventure.text.Component;
+import java.util.Collection;
+import java.util.function.Consumer;
+
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static java.util.Objects.requireNonNull;
+import net.kyori.adventure.text.Component;
 import team.unnamed.creative.base.Writable;
 import team.unnamed.creative.metadata.Metadata;
 import team.unnamed.creative.metadata.filter.FilterMeta;
@@ -37,11 +42,6 @@ import team.unnamed.creative.metadata.pack.PackFormat;
 import team.unnamed.creative.metadata.pack.PackMeta;
 import team.unnamed.creative.overlay.Overlay;
 import team.unnamed.creative.overlay.ResourceContainer;
-
-import java.util.Collection;
-import java.util.function.Consumer;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Minecraft: Java Edition resource-pack,
@@ -67,18 +67,6 @@ public interface ResourcePack extends ResourceContainer {
         return new ResourcePackImpl();
     }
 
-    /**
-     * Creates a new, empty resource-pack instance.
-     *
-     * @return A new resource-pack instance
-     * @since 1.0.0
-     * @deprecated Use {@link #resourcePack()} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull ResourcePack create() {
-        return resourcePack();
-    }
 
     /**
      * Returns the resource-pack icon
@@ -87,7 +75,8 @@ public interface ResourcePack extends ResourceContainer {
      * @return The resource-pack icon
      * @since 1.0.0
      */
-    @Nullable Writable icon();
+    @Nullable
+    Writable icon();
 
     /**
      * Sets the resource-pack icon
@@ -105,7 +94,8 @@ public interface ResourcePack extends ResourceContainer {
      * @return The resource-pack metadata
      * @since 1.0.0
      */
-    @NotNull Metadata metadata();
+    @NotNull
+    Metadata metadata();
 
     /**
      * Sets the metadata for this resource pack,
@@ -130,7 +120,7 @@ public interface ResourcePack extends ResourceContainer {
 
     default void packMeta(final @NotNull PackMeta packMeta) {
         requireNonNull(packMeta, "packMeta");
-        editMetadata(metadata -> metadata.add(packMeta));
+        editMetadata(metadata -> metadata.addPart(packMeta));
     }
 
     default void packMeta(final int format, final @NotNull String description) {
@@ -162,24 +152,6 @@ public interface ResourcePack extends ResourceContainer {
     }
 
     /**
-     * Returns the pack format that this resource-pack uses.
-     *
-     * @return The pack format
-     * @since 1.0.0
-     * @deprecated Use {@link ResourcePack#formats()} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    default int format() {
-        PackMeta meta = packMeta();
-        if (meta == null) {
-            return -1;
-        } else {
-            return meta.format();
-        }
-    }
-
-    /**
      * Returns the pack format range that this resource-pack
      * supports.
      *
@@ -195,13 +167,11 @@ public interface ResourcePack extends ResourceContainer {
         }
     }
 
-    default @Nullable String description() {
+    default @Nullable Component description() {
         PackMeta meta = packMeta();
-        if (meta == null) {
+        if (meta == null)
             return null;
-        } else {
-            return meta.description();
-        }
+        return meta.description();
     }
 
     default @Nullable LanguageMeta languageMeta() {
@@ -210,7 +180,7 @@ public interface ResourcePack extends ResourceContainer {
 
     default void languageMeta(final @NotNull LanguageMeta languageMeta) {
         requireNonNull(languageMeta, "languageMeta");
-        editMetadata(metadata -> metadata.add(languageMeta));
+        editMetadata(metadata -> metadata.addPart(languageMeta));
     }
 
     default @Nullable FilterMeta filterMeta() {
@@ -219,7 +189,7 @@ public interface ResourcePack extends ResourceContainer {
 
     default void filterMeta(final @NotNull FilterMeta filterMeta) {
         requireNonNull(filterMeta, "filterMeta");
-        editMetadata(metadata -> metadata.add(filterMeta));
+        editMetadata(metadata -> metadata.addPart(filterMeta));
     }
 
     /**
@@ -246,7 +216,7 @@ public interface ResourcePack extends ResourceContainer {
      */
     default void overlaysMeta(final @NotNull OverlaysMeta overlaysMeta) {
         requireNonNull(overlaysMeta, "overlaysMeta");
-        editMetadata(metadata -> metadata.add(overlaysMeta));
+        editMetadata(metadata -> metadata.addPart(overlaysMeta));
     }
     //#endregion
 
@@ -269,7 +239,8 @@ public interface ResourcePack extends ResourceContainer {
      * @sinceMinecraft 1.20.2
      * @since 1.1.0
      */
-    @Nullable Overlay overlay(final @NotNull @OverlayEntry.Directory String directory);
+    @Nullable
+    Overlay overlay(final @NotNull @OverlayEntry.Directory String directory);
 
     /**
      * Gets all the overlays in this resource-pack.
@@ -279,5 +250,6 @@ public interface ResourcePack extends ResourceContainer {
      * @sinceMinecraft 1.20.2
      * @since 1.1.0
      */
-    @NotNull Collection<Overlay> overlays();
+    @NotNull
+    Collection<Overlay> overlays();
 }

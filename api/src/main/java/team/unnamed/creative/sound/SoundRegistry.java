@@ -23,21 +23,21 @@
  */
 package team.unnamed.creative.sound;
 
-import net.kyori.adventure.key.Key;
-import net.kyori.adventure.key.Namespaced;
-import net.kyori.examination.Examinable;
+import java.util.Collection;
+import java.util.Set;
+
 import org.intellij.lang.annotations.Pattern;
 import org.intellij.lang.annotations.Subst;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
+
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.key.Namespaced;
+import net.kyori.examination.Examinable;
 import team.unnamed.creative.overlay.ResourceContainer;
 import team.unnamed.creative.part.ResourcePackPart;
-
-import java.util.Collection;
-import java.util.Set;
 
 /**
  * Represents a {@link SoundEvent} registry.
@@ -79,35 +79,6 @@ public interface SoundRegistry extends ResourcePackPart, Namespaced, Examinable 
      */
     static @NotNull Builder soundRegistry() {
         return new SoundRegistryImpl.BuilderImpl();
-    }
-
-    /**
-     * Creates a new registry from the given
-     * sounds
-     *
-     * @param namespace The sound registry namespace
-     * @param sounds    The registered sounds
-     * @return A new sound registry instance
-     * @since 1.0.0
-     * @deprecated Use {@link #soundRegistry(String, Set)} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull SoundRegistry of(final @NotNull String namespace, final @NotNull Set<SoundEvent> sounds) {
-        return soundRegistry(namespace, sounds);
-    }
-
-    /**
-     * Creates a new registry builder.
-     *
-     * @return A new registry builder
-     * @since 1.1.0
-     * @deprecated Use {@link #soundRegistry()} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Builder builder() {
-        return soundRegistry();
     }
 
     /**

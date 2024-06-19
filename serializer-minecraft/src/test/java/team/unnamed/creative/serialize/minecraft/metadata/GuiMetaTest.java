@@ -23,20 +23,21 @@
  */
 package team.unnamed.creative.serialize.minecraft.metadata;
 
-import com.google.gson.stream.JsonReader;
-import org.junit.jupiter.api.Test;
-import team.unnamed.creative.metadata.Metadata;
-import team.unnamed.creative.metadata.gui.GuiBorder;
-import team.unnamed.creative.metadata.gui.GuiMeta;
-import team.unnamed.creative.metadata.gui.GuiScaling;
-import team.unnamed.creative.serialize.minecraft.GsonUtil;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
+
+import com.google.gson.stream.JsonReader;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import team.unnamed.creative.metadata.Metadata;
+import team.unnamed.creative.metadata.gui.GuiBorder;
+import team.unnamed.creative.metadata.gui.GuiMeta;
+import team.unnamed.creative.metadata.gui.GuiScaling;
+import team.unnamed.creative.serialize.minecraft.GsonUtil;
 
 class GuiMetaTest {
     @Test
@@ -60,7 +61,7 @@ class GuiMetaTest {
 
             assertEquals(
                     Metadata.metadata()
-                            .add(GuiMeta.of(entry.getValue()))
+                            .addPart(GuiMeta.of(entry.getValue()))
                             .build(),
                     metadata,
                     "Not equal for entry: " + entry.getKey()

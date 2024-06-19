@@ -23,15 +23,15 @@
  */
 package team.unnamed.creative.serialize.minecraft.metadata;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import team.unnamed.creative.metadata.pack.PackFormat;
 import team.unnamed.creative.metadata.pack.PackMeta;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PackMetaTest {
 
@@ -43,7 +43,7 @@ class PackMetaTest {
                 Component.text("Description!")
         );
         assertEquals(
-                "{\"pack_format\":7,\"description\":\"Description!\"}",
+                "{\"pack_format\":7,\"description\":{\"text\":\"Description!\"}}",
                 PackMetaCodec.INSTANCE.toJson(packMeta)
         );
     }
@@ -56,7 +56,7 @@ class PackMetaTest {
                 Component.text("Description!")
         );
         assertEquals(
-                "{\"pack_format\":18,\"description\":\"Description!\",\"supported_formats\":[18,20]}",
+                "{\"pack_format\":18,\"description\":{\"text\":\"Description!\"},\"supported_formats\":[18,20]}",
                 PackMetaCodec.INSTANCE.toJson(packMeta)
         );
     }

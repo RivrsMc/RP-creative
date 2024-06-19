@@ -64,8 +64,6 @@ import java.util.Map;
 @ApiStatus.Internal
 public final class ModelSerializer implements JsonResourceSerializer<Model>, JsonResourceDeserializer<Model> {
 
-    private static final float MINECRAFT_UV_UNIT = 16F;
-
     public static final ModelSerializer INSTANCE;
     public static final ResourceCategory<Model> CATEGORY;
 
@@ -248,10 +246,10 @@ public final class ModelSerializer implements JsonResourceSerializer<Model>, Jso
                 if (uv != null && !uv.equals(defaultUv)) {
                     writer.name("uv");
                     writer.beginArray();
-                    writer.value(uv.from().x() * MINECRAFT_UV_UNIT);
-                    writer.value(uv.from().y() * MINECRAFT_UV_UNIT);
-                    writer.value(uv.to().x() * MINECRAFT_UV_UNIT);
-                    writer.value(uv.to().y() * MINECRAFT_UV_UNIT);
+                    writer.value(uv.from().x());
+                    writer.value(uv.from().y());
+                    writer.value(uv.to().x());
+                    writer.value(uv.to().y());
                     writer.endArray();
                 }
             }
@@ -271,8 +269,6 @@ public final class ModelSerializer implements JsonResourceSerializer<Model>, Jso
     }
 
     private static TextureUV getDefaultUvForFace(CubeFace face, Vector3Float from, Vector3Float to) {
-        from = from.divide(MINECRAFT_UV_UNIT);
-        to = to.divide(MINECRAFT_UV_UNIT);
         switch (face) {
             case WEST:
                 return TextureUV.uv(from.z(), 1F - to.y(), to.z(), 1F - from.y());
@@ -308,10 +304,7 @@ public final class ModelSerializer implements JsonResourceSerializer<Model>, Jso
                 JsonArray array = elementFaceNode.getAsJsonArray("uv");
                 Vector2Float from = new Vector2Float(array.get(0).getAsFloat(), array.get(1).getAsFloat());
                 Vector2Float to = new Vector2Float(array.get(2).getAsFloat(), array.get(3).getAsFloat());
-                uv = TextureUV.uv(
-                        from.divide(MINECRAFT_UV_UNIT),
-                        to.divide(MINECRAFT_UV_UNIT)
-                );
+                uv = TextureUV.uv(from, to);
             }
 
             CubeFace cullFace = null;

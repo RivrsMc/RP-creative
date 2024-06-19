@@ -23,11 +23,12 @@
  */
 package team.unnamed.creative.sound;
 
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
+
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.key.Keyed;
 import net.kyori.examination.Examinable;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
 import team.unnamed.creative.base.Writable;
 import team.unnamed.creative.overlay.ResourceContainer;
 import team.unnamed.creative.part.ResourcePackPart;
@@ -50,21 +51,6 @@ public interface Sound extends ResourcePackPart, Keyed, Examinable {
      * @since 1.1.0
      */
     static @NotNull Sound sound(final @NotNull Key key, final @NotNull Writable data) {
-        return new SoundImpl(key, data);
-    }
-
-    /**
-     * Creates a new sound instance with the given key and data.
-     *
-     * @param key  The sound key
-     * @param data The sound data
-     * @return The sound instance
-     * @since 1.0.0
-     * @deprecated Use {@link #sound(Key, Writable)} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Sound of(final @NotNull Key key, final @NotNull Writable data) {
         return new SoundImpl(key, data);
     }
 

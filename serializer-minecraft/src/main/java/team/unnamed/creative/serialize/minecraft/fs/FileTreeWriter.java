@@ -23,18 +23,14 @@
  */
 package team.unnamed.creative.serialize.minecraft.fs;
 
-import com.google.gson.stream.JsonWriter;
-import org.jetbrains.annotations.ApiStatus;
-import team.unnamed.creative.base.Writable;
-
 import java.io.File;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.util.function.Function;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import team.unnamed.creative.base.Writable;
 
 /**
  * Represents a file tree, which may be implemented by a
@@ -76,12 +72,6 @@ public interface FileTreeWriter extends AutoCloseable {
      */
     default Writer openWriter(String path) {
         return new OutputStreamWriter(openStream(path), StandardCharsets.UTF_8);
-    }
-
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    default JsonWriter openJsonWriter(String path) {
-        return new JsonWriter(openWriter(path));
     }
 
     /**
@@ -160,33 +150,6 @@ public interface FileTreeWriter extends AutoCloseable {
      */
     static FileTreeWriter zip(ZipOutputStream zipStream, ZipEntryLifecycleHandler entryLifecycleHandler) {
         return new ZipFileTreeWriter(zipStream, entryLifecycleHandler);
-    }
-
-    /**
-     * Creates a new {@link FileTreeWriter} instance for
-     * the given {@link ZipOutputStream}, will not
-     * be closed
-     *
-     * <p>Note that the created file tree will never
-     * close the given output stream, but it may be
-     * finished ({@link ZipOutputStream#finish()})</p>
-     *
-     * @param zipStream The underlying zip stream
-     * @param entryFactory The ZIP archive entry factory
-     * @return The file tree for the given zip output
-     * stream
-     * @deprecated Use {@link FileTreeWriter#zip(ZipOutputStream, ZipEntryLifecycleHandler)} instead
-     */
-    @Deprecated
-    static FileTreeWriter zip(ZipOutputStream zipStream, Function<String, ZipEntry> entryFactory) {
-        return new ZipFileTreeWriter(zipStream, new ZipEntryLifecycleHandler() {
-
-            @Override
-            public ZipEntry create(String path) {
-                return entryFactory.apply(path);
-            }
-
-        });
     }
 
     /**

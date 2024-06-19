@@ -23,9 +23,13 @@
  */
 package team.unnamed.creative.serialize.minecraft.model;
 
-import net.kyori.adventure.key.Key;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import net.kyori.adventure.key.Key;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import team.unnamed.creative.base.Axis3D;
 import team.unnamed.creative.base.CubeFace;
 import team.unnamed.creative.base.Readable;
@@ -37,10 +41,6 @@ import team.unnamed.creative.model.Model;
 import team.unnamed.creative.model.ModelTexture;
 import team.unnamed.creative.model.ModelTextures;
 import team.unnamed.creative.texture.TextureUV;
-
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ModelDeserializationTest {
 
@@ -73,14 +73,14 @@ class ModelDeserializationTest {
                                 .shade(false)
                                 .faces(new HashMap<CubeFace, ElementFace>() {{
                                     put(CubeFace.SOUTH, ElementFace.face(
-                                            TextureUV.uv(0.0f, 0.0f, 1.0f, 1.0f),
+                                            TextureUV.uv(0.0f, 0.0f, 16.0f, 16.0f),
                                             "#cross",
                                             null,
                                             0,
                                             -1
                                     ));
                                     put(CubeFace.NORTH, ElementFace.face(
-                                            TextureUV.uv(0.0f, 0.0f, 1.0f, 1.0f),
+                                            TextureUV.uv(0.0f, 0.0f, 16.0f, 16.0f),
                                             "#cross",
                                             null,
                                             0,
@@ -102,14 +102,14 @@ class ModelDeserializationTest {
                                 .shade(false)
                                 .faces(new HashMap<CubeFace, ElementFace>() {{
                                     put(CubeFace.WEST, ElementFace.face(
-                                            TextureUV.uv(0.0f, 0.0f, 1.0f, 1.0f),
+                                            TextureUV.uv(0.0f, 0.0f, 16.0f, 16.0f),
                                             "#cross",
                                             null,
                                             0,
                                             -1
                                     ));
                                     put(CubeFace.EAST, ElementFace.face(
-                                            TextureUV.uv(0.0f, 0.0f, 1.0f, 1.0f),
+                                            TextureUV.uv(0.0f, 0.0f, 16.0f, 16.0f),
                                             "#cross",
                                             null,
                                             0,

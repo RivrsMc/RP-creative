@@ -23,16 +23,12 @@
  */
 package team.unnamed.creative.model;
 
-import net.kyori.examination.Examinable;
-
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import net.kyori.examination.Examinable;
 import team.unnamed.creative.base.CubeFace;
-import team.unnamed.creative.base.Vector2Float;
-import team.unnamed.creative.base.Vector4Float;
 import team.unnamed.creative.texture.TextureUV;
 
 /**
@@ -42,18 +38,6 @@ import team.unnamed.creative.texture.TextureUV;
  * @since 1.0.0
  */
 public interface ElementFace extends Examinable {
-
-    /**
-     * The Minecraft UV unit, UV coordinates in Minecraft
-     * actually use a 0-16 scale, so this constant is used
-     * to convert from 0-1 to 0-16.
-     *
-     * @since 1.0.0
-     * @deprecated Should not be exposed, moved to serializer
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    float MINECRAFT_UV_UNIT = 16F;
 
     int DEFAULT_ROTATION = 0;
     int DEFAULT_TINT_INDEX = -1;
@@ -94,7 +78,6 @@ public interface ElementFace extends Examinable {
      *
      * @return The texture area to use
      * @since 1.1.0
-     * @deprecated Will be renamed to "uv" in 2.0.0
      */
     @Nullable TextureUV uv();
 

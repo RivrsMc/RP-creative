@@ -23,10 +23,10 @@
  */
 package team.unnamed.creative.metadata.animation;
 
-import net.kyori.examination.Examinable;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import net.kyori.examination.Examinable;
 
 /**
  * Represents a texture animation frame, includes the
@@ -53,23 +53,6 @@ public interface AnimationFrame extends Examinable {
 
     /**
      * Creates a new animation frame with the specified
-     * index and frame time
-     *
-     * @param index     The frame index
-     * @param frameTime The frame specific time
-     * @return A new and independent {@link AnimationFrame} instance
-     * @since 1.0.0
-     * @deprecated Use {@link #frame(int, int)} instead
-     */
-    @Contract("_, _ -> new")
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull AnimationFrame of(final int index, final int frameTime) {
-        return frame(index, frameTime);
-    }
-
-    /**
-     * Creates a new animation frame with the specified
      * index, no frame time is specified here, it depends
      * on {@link AnimationMeta}
      *
@@ -80,23 +63,6 @@ public interface AnimationFrame extends Examinable {
     @Contract("_ -> new")
     static @NotNull AnimationFrame frame(final int index) {
         return new AnimationFrameImpl(index, DELEGATE_FRAME_TIME);
-    }
-
-    /**
-     * Creates a new animation frame with the specified
-     * index, no frame time is specified here, it depends
-     * on {@link AnimationMeta}
-     *
-     * @param index The animation frame index
-     * @return A new, dependent {@link AnimationFrame} instance
-     * @since 1.0.0
-     * @deprecated Use {@link #frame(int)} instead
-     */
-    @Contract("_ -> new")
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull AnimationFrame of(final int index) {
-        return frame(index);
     }
 
     /**

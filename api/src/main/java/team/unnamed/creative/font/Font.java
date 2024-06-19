@@ -23,17 +23,18 @@
  */
 package team.unnamed.creative.font;
 
-import net.kyori.adventure.key.Key;
-import net.kyori.adventure.key.Keyed;
-import net.kyori.examination.Examinable;
+import java.util.Arrays;
+import java.util.List;
+
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.key.Keyed;
+import net.kyori.examination.Examinable;
 import team.unnamed.creative.overlay.ResourceContainer;
 import team.unnamed.creative.part.ResourcePackPart;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Represents a resource-pack font.
@@ -74,7 +75,7 @@ public interface Font extends ResourcePackPart, Keyed, Examinable {
      * @since 1.1.0
      */
     static @NotNull Font font(final @NotNull Key key, final @NotNull FontProvider @NotNull ... providers) {
-        return of(key, Arrays.asList(providers));
+        return font(key, Arrays.asList(providers));
     }
 
     /**
@@ -87,39 +88,6 @@ public interface Font extends ResourcePackPart, Keyed, Examinable {
         return new FontImpl.BuilderImpl();
     }
 
-    /**
-     * Creates a new {@link Font} instance from
-     * the given provider list
-     *
-     * @param key       The font key
-     * @param providers The font providers
-     * @return A new {@link Font} instance
-     * @since 1.0.0
-     * @deprecated Use {@link Font#font} as it is better
-     * for static imports
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Font of(final @NotNull Key key, final @NotNull List<FontProvider> providers) {
-        return font(key, providers);
-    }
-
-    /**
-     * Creates a new {@link Font} instance from
-     * the given providers
-     *
-     * @param key       The font key
-     * @param providers The font providers
-     * @return A new {@link Font} instance
-     * @since 1.0.0
-     * @deprecated Use {@link Font#font} as it is better
-     * for static imports
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Font of(final @NotNull Key key, final @NotNull FontProvider @NotNull ... providers) {
-        return font(key, Arrays.asList(providers));
-    }
 
     /**
      * Returns the font key.

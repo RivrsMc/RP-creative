@@ -23,10 +23,15 @@
  */
 package team.unnamed.creative.serialize.minecraft.metadata;
 
+import java.io.IOException;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonWriter;
+
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.KeybindComponent;
 import net.kyori.adventure.text.TranslatableComponent;
@@ -34,12 +39,9 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.jetbrains.annotations.NotNull;
 import team.unnamed.creative.metadata.pack.PackFormat;
 import team.unnamed.creative.metadata.pack.PackMeta;
 import team.unnamed.creative.serialize.minecraft.base.PackFormatSerializer;
-
-import java.io.IOException;
 
 final class PackMetaCodec implements MetadataPartCodec<PackMeta> {
 
@@ -87,12 +89,8 @@ final class PackMetaCodec implements MetadataPartCodec<PackMeta> {
 
         writer.name("description");
         //noinspection deprecation
-        Component description = pack.description0();
-        if (canWeUseLegacy(description)) {
-            writer.value(pack.description());
-        } else {
-            Streams.write(GsonComponentSerializer.gson().serializeToTree(description), writer);
-        }
+        Component description = pack.description();
+        Streams.write(GsonComponentSerializer.gson().serializeToTree(description), writer);
 
         if (!pack.formats().isSingle()) { // since Minecraft 1.20.2 (pack format 18)
             // only write min and max values if not single
@@ -119,7 +117,7 @@ final class PackMetaCodec implements MetadataPartCodec<PackMeta> {
 
         // if component is translatable or keybind, we can't use legacy
         if (component instanceof TranslatableComponent
-                || component instanceof KeybindComponent) return false;
+            || component instanceof KeybindComponent) return false;
 
         // if component has insertion, hover event or click event, we can't use legacy
         if (component.insertion() != null) return false;

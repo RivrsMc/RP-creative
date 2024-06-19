@@ -23,13 +23,14 @@
  */
 package team.unnamed.creative.texture;
 
-import net.kyori.adventure.key.Key;
-import net.kyori.adventure.key.Keyed;
-import net.kyori.examination.Examinable;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.key.Keyed;
+import net.kyori.examination.Examinable;
 import team.unnamed.creative.base.Writable;
 import team.unnamed.creative.metadata.Metadata;
 import team.unnamed.creative.metadata.Metadatable;
@@ -87,53 +88,6 @@ public interface Texture extends ResourcePackPart, Keyed, Examinable, Metadatabl
      * @since 1.1.0
      */
     static @NotNull Builder texture() {
-        return new TextureImpl.BuilderImpl();
-    }
-
-    /**
-     * Creates a texture.
-     *
-     * @param key  The texture key
-     * @param data The texture data
-     * @return The created texture
-     * @since 1.0.0
-     * @deprecated Use {@link Texture#texture(Key, Writable)} instead,
-     * it's better for static imports
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Texture of(final @NotNull Key key, final @NotNull Writable data) {
-        return of(key, data, Metadata.empty());
-    }
-
-    /**
-     * Creates a texture.
-     *
-     * @param key  The texture key
-     * @param data The texture data
-     * @param meta The texture metadata
-     * @return The created texture
-     * @since 1.0.0
-     * @deprecated Use {@link Texture#texture(Key, Writable)} instead,
-     * it's better for static imports
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Texture of(final @NotNull Key key, final @NotNull Writable data, final @NotNull Metadata meta) {
-        return new TextureImpl(key, data, meta);
-    }
-
-    /**
-     * Creates a new builder for textures.
-     *
-     * @return The created builder
-     * @since 1.0.0
-     * @deprecated Use {@link Texture#texture()} instead,
-     * it's better for static imports
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Builder builder() {
         return new TextureImpl.BuilderImpl();
     }
 
@@ -224,7 +178,7 @@ public interface Texture extends ResourcePackPart, Keyed, Examinable, Metadatabl
      */
     @Contract("-> new")
     default @NotNull Builder toBuilder() {
-        return builder()
+        return texture()
                 .key(this.key())
                 .data(this.data())
                 .meta(this.meta());
@@ -314,7 +268,7 @@ public interface Texture extends ResourcePackPart, Keyed, Examinable, Metadatabl
          */
         @Contract("_ -> this")
         default @NotNull Builder animationMeta(final @NotNull AnimationMeta animationMeta) {
-            return meta(meta().toBuilder().add(animationMeta).build());
+            return meta(meta().toBuilder().addPart(animationMeta).build());
         }
 
         /**
@@ -326,7 +280,7 @@ public interface Texture extends ResourcePackPart, Keyed, Examinable, Metadatabl
          */
         @Contract("_ -> this")
         default @NotNull Builder villagerMeta(final @NotNull VillagerMeta villagerMeta) {
-            return meta(meta().toBuilder().add(villagerMeta).build());
+            return meta(meta().toBuilder().addPart(villagerMeta).build());
         }
 
         /**
@@ -337,7 +291,7 @@ public interface Texture extends ResourcePackPart, Keyed, Examinable, Metadatabl
          * @since 1.0.0
          */
         default @NotNull Builder textureMeta(final @NotNull TextureMeta textureMeta) {
-            return meta(meta().toBuilder().add(textureMeta).build());
+            return meta(meta().toBuilder().addPart(textureMeta).build());
         }
 
         /**

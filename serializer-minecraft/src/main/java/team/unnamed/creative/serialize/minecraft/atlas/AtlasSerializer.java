@@ -23,20 +23,22 @@
  */
 package team.unnamed.creative.serialize.minecraft.atlas;
 
-import com.google.gson.JsonElement;
-import com.google.gson.stream.JsonWriter;
-import net.kyori.adventure.key.Key;
-import org.jetbrains.annotations.ApiStatus;
-import team.unnamed.creative.atlas.Atlas;
-import team.unnamed.creative.atlas.AtlasSource;
-import team.unnamed.creative.overlay.ResourceContainer;
-import team.unnamed.creative.serialize.minecraft.io.JsonResourceSerializer;
-import team.unnamed.creative.serialize.minecraft.io.JsonResourceDeserializer;
-import team.unnamed.creative.serialize.minecraft.ResourceCategory;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jetbrains.annotations.ApiStatus;
+
+import com.google.gson.JsonElement;
+import com.google.gson.stream.JsonWriter;
+
+import net.kyori.adventure.key.Key;
+import team.unnamed.creative.atlas.Atlas;
+import team.unnamed.creative.atlas.AtlasSource;
+import team.unnamed.creative.overlay.ResourceContainer;
+import team.unnamed.creative.serialize.minecraft.ResourceCategory;
+import team.unnamed.creative.serialize.minecraft.io.JsonResourceDeserializer;
+import team.unnamed.creative.serialize.minecraft.io.JsonResourceSerializer;
 
 @ApiStatus.Internal
 public final class AtlasSerializer implements JsonResourceSerializer<Atlas>, JsonResourceDeserializer<Atlas> {
@@ -86,7 +88,7 @@ public final class AtlasSerializer implements JsonResourceSerializer<Atlas>, Jso
         for (JsonElement sourceElement : node.getAsJsonObject().getAsJsonArray(SOURCES_FIELD)) {
             sources.add(AtlasSourceSerializer.deserialize(sourceElement.getAsJsonObject()));
         }
-        return Atlas.builder()
+        return Atlas.atlas()
                 .key(key)
                 .sources(sources)
                 .build();

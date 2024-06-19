@@ -53,20 +53,6 @@ public interface Element extends Examinable {
         return new ElementImpl.BuilderImpl();
     }
 
-    /**
-     * Creates a new {@link Element} builder
-     *
-     * @return The new builder
-     * @since 1.0.0
-     * @deprecated Use {@link #element()} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    @Contract("-> new")
-    static @NotNull Builder builder() {
-        return element();
-    }
-
     boolean DEFAULT_SHADE = true;
 
     float MIN_EXTENT = -16F;
@@ -211,22 +197,6 @@ public interface Element extends Examinable {
          * @since 1.2.0
          */
         @NotNull Builder addFace(final @NotNull CubeFace type, final @NotNull ElementFace face);
-
-        /**
-         * Adds a face to the element.
-         *
-         * @param type Which face to add
-         * @param face The face data
-         * @return This builder
-         * @since 1.0.0
-         * @deprecated Use {@link #addFace(CubeFace, ElementFace)} instead
-         */
-        @Deprecated
-        @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-        @Contract("_, _ -> this")
-        default @NotNull Builder face(final @NotNull CubeFace type, final @NotNull ElementFace face) {
-            return addFace(type, face);
-        }
 
         /**
          * Builds the element.

@@ -23,13 +23,13 @@
  */
 package team.unnamed.creative.sound;
 
-import net.kyori.adventure.key.Key;
-import net.kyori.adventure.key.Keyed;
-import net.kyori.examination.Examinable;
-import org.intellij.lang.annotations.Subst;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.key.Keyed;
+import net.kyori.examination.Examinable;
 
 /**
  * Represents a possible sound for a {@link SoundEvent},
@@ -40,27 +40,6 @@ import org.jetbrains.annotations.NotNull;
  */
 @ApiStatus.NonExtendable
 public interface SoundEntry extends Keyed, Examinable {
-    /**
-     * Creates a new {@link SoundEntry} from the given
-     * properties, using {@link Type#FILE} as
-     * sound type
-     *
-     * @param path                The sound file path
-     * @param volume              The sound volume (0-1)
-     * @param pitch               The sound pitch
-     * @param weight              The sound weight
-     * @param stream              True if the sound should be streamed
-     * @param attenuationDistance The sound attenuation distance
-     * @param preload             True if the sound should be preloaded
-     * @return A new sound
-     * @since 1.0.0
-     * @deprecated Use the builder instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull SoundEntry sound(final @NotNull Key path, final float volume, final float pitch, final int weight, final boolean stream, final int attenuationDistance, final boolean preload) {
-        return new SoundEntryImpl(path, volume, pitch, weight, stream, attenuationDistance, preload, Type.FILE);
-    }
 
     /**
      * Creates a new {@link SoundEntry} from the given
@@ -87,65 +66,6 @@ public interface SoundEntry extends Keyed, Examinable {
     }
 
     /**
-     * Creates a new {@link SoundEntry} from the given
-     * {@link Sound sound}.
-     *
-     * @param sound The sound
-     * @return A new sound entry
-     * @since 1.0.0
-     * @deprecated Use {@link #soundEntry(Sound)} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull SoundEntry withDefaultValues(final @NotNull Sound sound) {
-        return builder().nameSound(sound.key()).build();
-    }
-
-    /**
-     * Creates a new {@link SoundEntry} from the given
-     * properties, using {@link Type#EVENT} as
-     * sound type
-     *
-     * @param name                The sound event name
-     * @param volume              The sound volume (0-1)
-     * @param pitch               The sound pitch
-     * @param weight              The sound weight
-     * @param stream              True if the sound should be streamed
-     * @param attenuationDistance The sound attenuation distance
-     * @param preload             True if the sound should be preloaded
-     * @return A new sound
-     * @since 1.0.0
-     * @deprecated Use the builder instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull SoundEntry event(final @NotNull Key name, final float volume, final float pitch, final int weight, final boolean stream, final int attenuationDistance, final boolean preload) {
-        return new SoundEntryImpl(name, volume, pitch, weight, stream, attenuationDistance, preload, Type.EVENT);
-    }
-
-    /**
-     * Creates a new {@link SoundEntry} from the given
-     * properties, using {@link Type#EVENT} as
-     * sound type
-     *
-     * @param name                The sound event name
-     * @param volume              The sound volume (0-1)
-     * @param pitch               The sound pitch
-     * @param weight              The sound weight
-     * @param stream              True if the sound should be streamed
-     * @param attenuationDistance The sound attenuation distance
-     * @param preload             True if the sound should be preloaded
-     * @return A new sound
-     * @since 1.0.0
-     * @deprecated Use the builder instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static SoundEntry event(final @NotNull @Subst("minecraft:sound") String name, final float volume, final float pitch, final int weight, final boolean stream, final int attenuationDistance, final boolean preload) {
-        return SoundEntry.event(Key.key(name), volume, pitch, weight, stream, attenuationDistance, preload);
-    }
-
-    /**
      * Static factory method for our builder implementation
      *
      * @return A new builder for {@link SoundEntry} instances
@@ -153,19 +73,6 @@ public interface SoundEntry extends Keyed, Examinable {
      */
     static @NotNull Builder soundEntry() {
         return new SoundEntryImpl.BuilderImpl();
-    }
-
-    /**
-     * Static factory method for our builder implementation
-     *
-     * @return A new builder for {@link SoundEntry} instances
-     * @since 1.0.0
-     * @deprecated Use {@link #soundEntry()} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Builder builder() {
-        return soundEntry();
     }
 
     float DEFAULT_VOLUME = 1.0F;
@@ -193,17 +100,8 @@ public interface SoundEntry extends Keyed, Examinable {
      * @since 1.0.0
      */
     @Override
-    @NotNull Key key();
-
-    /**
-     * @return The sound entry's name ({@link Key#value()})
-     * @deprecated Use {@link SoundEntry#key()} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    default @NotNull String name() {
-        return key().value();
-    }
+    @NotNull
+    Key key();
 
     /**
      * Returns the volume for playing this sound.
@@ -285,7 +183,8 @@ public interface SoundEntry extends Keyed, Examinable {
      * @return The sound type
      * @since 1.0.0
      */
-    @NotNull Type type();
+    @NotNull
+    Type type();
 
     /**
      * Determines if the sound has all its properties
@@ -304,7 +203,8 @@ public interface SoundEntry extends Keyed, Examinable {
      * @since 1.6.0
      */
     @Contract("-> new")
-    @NotNull Builder toBuilder();
+    @NotNull
+    Builder toBuilder();
 
     /**
      * Specifies the type of {@link SoundEntry}
@@ -353,7 +253,8 @@ public interface SoundEntry extends Keyed, Examinable {
          * @since 1.0.0
          */
         @Contract("_ -> this")
-        @NotNull Builder type(final @NotNull Type type);
+        @NotNull
+        Builder type(final @NotNull Type type);
 
         /**
          * Sets the sound key for the sound entry.
@@ -363,52 +264,8 @@ public interface SoundEntry extends Keyed, Examinable {
          * @since 1.0.0
          */
         @Contract("_ -> this")
-        @NotNull Builder key(final @NotNull Key key);
-
-        /**
-         * Sets the {@link Sound} key for the sound entry.
-         *
-         * @param key The sound key
-         * @return This builder
-         * @since 1.0.0
-         * @deprecated Set {@link #type} and {@link #key} separately instead
-         */
-        @Deprecated
-        @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-        @Contract("_ -> this")
-        default @NotNull Builder nameSound(final @NotNull Key key) {
-            return type(Type.FILE).key(key);
-        }
-
-        /**
-         * Sets the {@link SoundEvent} key for the sound entry.
-         *
-         * @param key The sound event key
-         * @return This builder
-         * @since 1.0.0
-         * @deprecated Set {@link #type} and {@link #key} separately instead
-         */
-        @Deprecated
-        @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-        @Contract("_ -> this")
-        default @NotNull Builder nameEvent(final @NotNull Key key) {
-            return type(Type.EVENT).key(key);
-        }
-
-        /**
-         * Sets the {@link SoundEvent} name for the sound entry.
-         *
-         * @param name The sound event name
-         * @return This builder
-         * @since 1.0.0
-         * @deprecated Set {@link #type} and {@link #key} separately instead
-         */
-        @Deprecated
-        @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-        @Contract("_ -> this")
-        default @NotNull Builder nameEvent(final @NotNull @Subst("minecraft:sound") String name) {
-            return nameEvent(Key.key(name));
-        }
+        @NotNull
+        Builder key(final @NotNull Key key);
 
         /**
          * Sets the volume for the sound.
@@ -418,7 +275,8 @@ public interface SoundEntry extends Keyed, Examinable {
          * @since 1.0.0
          */
         @Contract("_ -> this")
-        @NotNull Builder volume(final float volume);
+        @NotNull
+        Builder volume(final float volume);
 
         /**
          * Sets the pitch for the sound.
@@ -428,7 +286,8 @@ public interface SoundEntry extends Keyed, Examinable {
          * @since 1.0.0
          */
         @Contract("_ -> this")
-        @NotNull Builder pitch(final float pitch);
+        @NotNull
+        Builder pitch(final float pitch);
 
         /**
          * Sets the weight for the sound.
@@ -438,7 +297,8 @@ public interface SoundEntry extends Keyed, Examinable {
          * @since 1.0.0
          */
         @Contract("_ -> this")
-        @NotNull Builder weight(final int weight);
+        @NotNull
+        Builder weight(final int weight);
 
         /**
          * Sets whether the sound should be streamed.
@@ -448,7 +308,8 @@ public interface SoundEntry extends Keyed, Examinable {
          * @since 1.0.0
          */
         @Contract("_ -> this")
-        @NotNull Builder stream(final boolean stream);
+        @NotNull
+        Builder stream(final boolean stream);
 
         /**
          * Sets the attenuation distance for the sound.
@@ -458,7 +319,8 @@ public interface SoundEntry extends Keyed, Examinable {
          * @since 1.0.0
          */
         @Contract("_ -> this")
-        @NotNull Builder attenuationDistance(final int attenuationDistance);
+        @NotNull
+        Builder attenuationDistance(final int attenuationDistance);
 
         /**
          * Sets the preload value for the sound.
@@ -468,7 +330,8 @@ public interface SoundEntry extends Keyed, Examinable {
          * @since 1.0.0
          */
         @Contract("_ -> this")
-        @NotNull Builder preload(final boolean preload);
+        @NotNull
+        Builder preload(final boolean preload);
 
         /**
          * Finishes building the {@link SoundEntry} instance,
@@ -478,6 +341,7 @@ public interface SoundEntry extends Keyed, Examinable {
          * @return The recently created sound
          * @since 1.0.0
          */
-        @NotNull SoundEntry build();
+        @NotNull
+        SoundEntry build();
     }
 }

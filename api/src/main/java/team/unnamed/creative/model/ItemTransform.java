@@ -121,38 +121,6 @@ public interface ItemTransform extends Examinable {
     }
 
     /**
-     * Creates a new {@link ItemTransform} instance from
-     * the given values
-     *
-     * @param rotation    The display rotation
-     * @param translation The display translation [-80, 80]
-     * @param scale       The display scale [0, 4]
-     * @return A new {@link ItemTransform} instance
-     * @since 1.0.0
-     * @deprecated Use {@link #transform(Vector3Float, Vector3Float, Vector3Float)} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull ItemTransform of(final @NotNull Vector3Float rotation, final @NotNull Vector3Float translation, final @NotNull Vector3Float scale) {
-        return new ItemTransformImpl(rotation, translation, scale);
-    }
-
-    /**
-     * Static factory method for instantiating our
-     * builder implementation, which eases the creation
-     * of {@link ItemTransform} instances
-     *
-     * @return A new builder instance
-     * @since 1.0.0
-     * @deprecated Use {@link #transform()} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Builder builder() {
-        return new ItemTransformImpl.BuilderImpl();
-    }
-
-    /**
      * Builder implementation for creating {@link ItemTransform}
      * instances
      *

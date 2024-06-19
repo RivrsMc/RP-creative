@@ -51,16 +51,10 @@ import static java.util.Objects.requireNonNull;
  */
 @ApiStatus.NonExtendable
 public interface Model extends ResourcePackPart, Keyed, Examinable {
+
     @Contract("-> new")
     static @NotNull Builder model() {
         return new ModelImpl.BuilderImpl();
-    }
-
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    @Contract("-> new")
-    static @NotNull Builder builder() {
-        return model();
     }
 
     /**

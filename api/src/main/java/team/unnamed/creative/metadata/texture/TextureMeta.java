@@ -26,6 +26,7 @@ package team.unnamed.creative.metadata.texture;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
 import team.unnamed.creative.metadata.MetadataPart;
 
 /**
@@ -50,25 +51,6 @@ public interface TextureMeta extends MetadataPart {
      */
     @Contract("_, _ -> new")
     static @NotNull TextureMeta texture(final boolean blur, final boolean clamp) {
-        return new TextureMetaImpl(blur, clamp);
-    }
-
-    /**
-     * Creates a new {@link TextureMeta} instance to
-     * be applied to a texture
-     *
-     * @param blur  To make the texture blur
-     * @param clamp To stretch the texture
-     * @return A new texture metadata instance
-     * @sincePackFormat 1
-     * @sinceMinecraft 1.6.1
-     * @since 1.0.0
-     * @deprecated Use {@link #texture(boolean, boolean)} instead
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    @Contract("_, _ -> new")
-    static @NotNull TextureMeta of(final boolean blur, final boolean clamp) {
         return new TextureMetaImpl(blur, clamp);
     }
 

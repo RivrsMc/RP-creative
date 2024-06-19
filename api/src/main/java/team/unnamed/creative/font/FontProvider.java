@@ -23,13 +23,14 @@
  */
 package team.unnamed.creative.font;
 
-import net.kyori.adventure.key.Key;
-import net.kyori.examination.Examinable;
+import java.util.List;
+import java.util.Map;
+
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.Map;
+import net.kyori.adventure.key.Key;
+import net.kyori.examination.Examinable;
 
 /**
  * Represents a Minecraft Resource Pack Font provider,
@@ -64,28 +65,6 @@ public interface FontProvider extends Examinable {
     @Contract("-> new")
     static BitMapFontProvider.Builder bitMap() {
         return new BitMapFontProviderImpl.BuilderImpl();
-    }
-
-    /**
-     * Creates a new legacy unicode font from the provided
-     * values, this font type should not be used since it
-     * is deprecated (now removed since Minecraft 1.20) and
-     * is only prioritized when the "Force Unicode Font" option
-     * is turned on
-     *
-     * @param sizes    Location to the file that specifies the
-     *                 character sizes
-     * @param template Location of the file that specifies
-     *                 the character textures, it is a string
-     *                 template and MUST contain a single '%s'
-     *                 that will be replaced by the unicode page
-     * @return A new {@link LegacyUnicodeFontProvider} font
-     * @since 1.0.0
-     * @deprecated Removed on Minecraft 1.20
-     */
-    @Deprecated
-    static LegacyUnicodeFontProvider legacyUnicode(Key sizes, String template) {
-        return new LegacyUnicodeFontProvider(sizes, template);
     }
 
     /**

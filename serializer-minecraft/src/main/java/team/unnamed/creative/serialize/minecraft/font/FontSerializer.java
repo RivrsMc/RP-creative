@@ -23,10 +23,17 @@
  */
 package team.unnamed.creative.serialize.minecraft.font;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonWriter;
+
 import net.kyori.adventure.key.Key;
 import team.unnamed.creative.base.Vector2Float;
 import team.unnamed.creative.font.BitMapFontProvider;
@@ -43,12 +50,6 @@ import team.unnamed.creative.serialize.minecraft.ResourceCategory;
 import team.unnamed.creative.serialize.minecraft.base.KeySerializer;
 import team.unnamed.creative.serialize.minecraft.io.JsonResourceDeserializer;
 import team.unnamed.creative.serialize.minecraft.io.JsonResourceSerializer;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 public final class FontSerializer implements JsonResourceSerializer<Font>, JsonResourceDeserializer<Font> {
 
@@ -127,7 +128,7 @@ public final class FontSerializer implements JsonResourceSerializer<Font>, JsonR
                     throw new IllegalStateException("Unknown font provider type: " + type);
             }
         }
-        return Font.of(key, providers);
+        return Font.font(key, providers);
     }
 
     private static void writeBitMap(JsonWriter writer, BitMapFontProvider provider) throws IOException {
@@ -176,10 +177,7 @@ public final class FontSerializer implements JsonResourceSerializer<Font>, JsonR
 
     private static LegacyUnicodeFontProvider readLegacyUnicode(JsonObject node) {
         // TODO: Should not be keys, they are formatted using String#format(...)
-        return FontProvider.legacyUnicode(
-                Key.key(node.get("sizes").getAsString()),
-                node.get("template").getAsString()
-        );
+        throw new UnsupportedOperationException("Legacy Unicode font providers are not supported anymore");
     }
 
     private static void writeSpace(JsonWriter writer, SpaceFontProvider provider) throws IOException {

@@ -23,22 +23,22 @@
  */
 package team.unnamed.creative.lang;
 
-import net.kyori.adventure.key.Key;
-import net.kyori.adventure.key.Keyed;
-import net.kyori.adventure.translation.Translatable;
-import net.kyori.examination.Examinable;
+import java.util.Map;
+
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static java.util.Objects.requireNonNull;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.key.Keyed;
+import net.kyori.adventure.translation.Translatable;
+import net.kyori.examination.Examinable;
 import team.unnamed.creative.metadata.language.LanguageEntry;
 import team.unnamed.creative.metadata.language.LanguageMeta;
 import team.unnamed.creative.overlay.ResourceContainer;
 import team.unnamed.creative.part.ResourcePackPart;
-
-import java.util.Map;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a set of translations for a specific
@@ -72,36 +72,6 @@ public interface Language extends ResourcePackPart, Keyed, Examinable {
      * @since 1.0.0
      */
     static @NotNull Builder language() {
-        return new LanguageImpl.BuilderImpl();
-    }
-
-    /**
-     * Creates a new {@link Language} object which holds
-     * the given translations in a Map
-     *
-     * @param translations The language translations
-     * @return The language
-     * @since 1.0.0
-     * @deprecated Use {@link Language#language(Key, Map)} instead,
-     * it is better for static imports
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Language of(final @NotNull Key key, final @NotNull Map<String, String> translations) {
-        return new LanguageImpl(key, translations);
-    }
-
-    /**
-     * Creates a new {@link Language} instance builder.
-     *
-     * @return The created builder
-     * @since 1.0.0
-     * @deprecated Use {@link Language#language()} instead,
-     * it is better for static imports
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.0.0")
-    static @NotNull Builder builder() {
         return new LanguageImpl.BuilderImpl();
     }
 
